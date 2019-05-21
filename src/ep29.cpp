@@ -38,7 +38,7 @@
 // Constants
 // The array here is taken from http://paulbourke.net/dataformats/hershey/
 
-const int8_t simplex[95][112] = {
+const PROGMEM int8_t simplex[95][112] = {
     0,16, /* Ascii 32 */
    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
@@ -622,6 +622,10 @@ static const int BUSY = 1, RESET = 2, DC = 3, CS = 4;
 // Function prototypes
 void ep_blob(unsigned char* frame, int x, int y, unsigned char col);
 
+int8_t read_simplex(int x, int y){
+    return pgm_read_byte(&simplex[x][y]);
+}
+
 // Functions
 void ep_spi_init(void)
 {
@@ -963,8 +967,8 @@ ep_write_text(unsigned char* frame, char* text, int x, int y, unsigned char col,
         if ((c>126) || (c<32))
             continue;
         c=c-32;
-        nv=simplex[c][0];
-        w=simplex[c][1];
+        nv=read_simplex(c, 0);
+        w=read_simplex(c, 1);
         if (w<0)
             w=0-w;
         if (nv==0)
@@ -977,8 +981,8 @@ ep_write_text(unsigned char* frame, char* text, int x, int y, unsigned char col,
         old=0;
         for (i=2; i<im; i=i+2)
         {
-            ipx=simplex[c][i];
-            ipy=simplex[c][i+1];
+            ipx=read_simplex(c, i);
+            ipy=read_simplex(c, i+1);
             if (ipx>=0)
             {
                 px=ipx;

@@ -28,10 +28,7 @@ const unsigned char partial_mode[] = {
 
 // Global Variables
 static const int LED_D1 = 0;
-char screen_update_ctr;
-char do_screen_update;
 unsigned char fbuf[EP_FRAMEMEMSIZE];
-char led_state=0;
 
 void setup() {
     pinMode(LED_D1, OUTPUT);
