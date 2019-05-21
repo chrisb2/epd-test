@@ -7,6 +7,7 @@
  ***********************************************/
 
 #include <arduino.h>
+#include <SPI.h>
 #include "ep29.h"
 
 // Definitions
@@ -33,17 +34,6 @@
 #define SET_RAM_X_ADDRESS_CTR              0x4e
 #define SET_RAM_Y_ADDRESS_CTR              0x4f
 #define TERM_FRAME_READ_WRITE              0xff
-
-#define EP_RST_LOW ep_rst=0
-#define EP_RST_HIGH ep_rst=1
-#define EP_DC_LOW ep_dc=0
-#define EP_DC_HIGH ep_dc=1
-#define EP_DC_CMD ep_dc=0
-#define EP_DC_DATA ep_dc=1
-#define EP_CS_LOW ep_cs=0
-#define EP_CS_HIGH ep_cs=1
-#define EP_BUSY (ep_busy.read()==1)
-#define EP_NOT_BUSY (ep_busy.read()==0)
 
 // Constants
 // The array here is taken from http://paulbourke.net/dataformats/hershey/
@@ -627,11 +617,7 @@ const int8_t simplex[95][112] = {
 
 // Global variables
 // Hardware Input/Output
-SPI ep_spi(PTD2, PTD3, PTD1); // mosi, miso, sclk
-DigitalOut ep_cs(PTD7);
-DigitalOut ep_dc(PTD6);
-DigitalOut ep_rst(PTA17);
-DigitalIn ep_busy(PTA16);
+static const int BUSY = 1, RESET = 2, DC = 3, CS = 4;
 
 // Function prototypes
 void ep_blob(unsigned char* frame, int x, int y, unsigned char col);
@@ -639,39 +625,44 @@ void ep_blob(unsigned char* frame, int x, int y, unsigned char col);
 // Functions
 void ep_spi_init(void)
 {
-    EP_RST_HIGH;
-    EP_CS_HIGH;
-    ep_spi.format(8,0);
+    pinMode(BUSY, INPUT);
+    pinMode(RESET, OUTPUT);
+    pinMode(DC, OUTPUT);
+    pinMode(CS, OUTPUT);
+    digitalWrite(RESET, HIGH);
+    digitalWrite(CS, HIGH);
+
+    SPI.begin();
 }
 
 void ep_reset(void)
 {
-    EP_RST_LOW;
-    wait(0.2);
-    EP_RST_HIGH;
-    wait(0.2);
+    digitalWrite(RESET, LOW);
+    delay(200);
+    digitalWrite(RESET, HIGH);
+    delay(200);
 }
 
 void ep_cmd(unsigned char cmd)
 {
-    EP_DC_CMD;
-    EP_CS_LOW;
-    ep_spi.write(cmd);
-    EP_CS_HIGH;
+    digitalWrite(DC, LOW);
+    digitalWrite(CS, LOW);
+    SPI.transfer(cmd);
+    digitalWrite(CS, HIGH);
 }
 
 void ep_data(unsigned char data)
 {
-    EP_DC_DATA;
-    EP_CS_LOW;
-    ep_spi.write(data);
-    EP_CS_HIGH;
+    digitalWrite(DC, HIGH);;
+    digitalWrite(CS, LOW);
+    SPI.transfer(data);
+    digitalWrite(CS, HIGH);
 }
 
 void ep_wait(void)
 {
-    while(EP_BUSY);
-    wait(0.1);
+    while(digitalRead(BUSY) == 1);
+    delay(100);
 }
 
 void ep_sleep(void)
