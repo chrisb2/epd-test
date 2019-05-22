@@ -637,6 +637,7 @@ void ep_spi_init(void)
     digitalWrite(CS, HIGH);
 
     SPI.begin();
+    SPI.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
 }
 
 void ep_reset(void)
@@ -665,8 +666,9 @@ void ep_data(unsigned char data)
 
 void ep_wait(void)
 {
-    while(digitalRead(BUSY) == 1);
-    delay(100);
+    while(digitalRead(BUSY) == HIGH) {
+        delay(100);
+    }
 }
 
 void ep_sleep(void)
