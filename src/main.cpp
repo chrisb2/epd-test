@@ -27,6 +27,7 @@ const unsigned char partial_mode[] = {
 
 
 // Global Variables
+char text[] = "Hello World";
 static const int LED_D1 = 0;
 unsigned char fbuf[EP_FRAMEMEMSIZE];
 
@@ -36,7 +37,7 @@ void setup() {
     ep_init((unsigned char*)full_mode);
     ep_setbg(fbuf, ALL_WHITE);
 
-    ep_write_text(fbuf, "E-Paper Clock", 10, 50, COL_BLACK, 2.0, 1.0, NULL, PEN_MED);
+    ep_write_text(fbuf, text, 10, 50, COL_BLACK, 2.0, 1.0, NULL, PEN_MED);
     ep_setframe(fbuf, 0,0, EP_WIDTH, EP_HEIGHT);
     ep_displayframe();
 }
