@@ -1,5 +1,5 @@
 #include <arduino.h>
-#include "ep29.h"
+#include "ep154.h"
 
 // look-up tables, provided by Waveshare
 const unsigned char full_mode[] = {

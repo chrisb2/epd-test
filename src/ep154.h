@@ -1,17 +1,17 @@
-// ep29.h.h
-// ep29 header file
+// ep154.h.h
+// ep154 header file
 // rev 1 - December 2017- Shabaz
 
-#ifndef _EP29_H_
-#define _EP29_H_
+#ifndef _EP154_H_
+#define _EP154_H_
 
 // Definitions
-#define EP_WIDTH 128
-#define EP_HEIGHT 296
+#define EP_WIDTH 200
+#define EP_HEIGHT 200
 // EP_WIDTH8 is width/8
-#define EP_WIDTH8 16
+#define EP_WIDTH8 25
 // EP_FRAMEMEMSIZE is (width/8) * height;
-#define EP_FRAMEMEMSIZE 4736
+#define EP_FRAMEMEMSIZE 5000
 #define ALL_WHITE 0xff
 #define ALL_BLACK 0x00
 #define COL_WHITE 1

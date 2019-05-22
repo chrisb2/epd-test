@@ -1,6 +1,6 @@
 /***********************************************
- * ep29.cpp
- * 2.9 inch E-Paper Driver
+ * _EP154_H_.cpp
+ * 1.54 inch E-Paper Driver
  * rev 1 - shabaz - December 2017
  * free for all non-commercial use
  *
@@ -8,7 +8,7 @@
 
 #include <arduino.h>
 #include <SPI.h>
-#include "ep29.h"
+#include "ep154.h"
 
 // Definitions
 
