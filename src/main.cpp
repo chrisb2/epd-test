@@ -13,11 +13,10 @@ const unsigned char partial_mode[] = {
 
 // Global Variables
 char text[] = "Hello World";
-static const int LED_D1 = 0;
 unsigned char fbuf[EP_FRAMEMEMSIZE];
 
 void setup() {
-    pinMode(LED_D1, OUTPUT);
+    pinMode(LED_BUILTIN, OUTPUT);
     ep_spi_init();
     ep_init((unsigned char*)full_mode);
     ep_setbg(fbuf, ALL_WHITE);
@@ -28,8 +27,8 @@ void setup() {
 }
 
 void loop() {
-    digitalWrite(LED_D1, HIGH);
+    digitalWrite(LED_BUILTIN, HIGH);
     delay(200);
-    digitalWrite(LED_D1, LOW);
+    digitalWrite(LED_BUILTIN, LOW);
     delay(200);
 }
