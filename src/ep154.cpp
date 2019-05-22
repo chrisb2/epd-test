@@ -798,7 +798,7 @@ ep_plot_raw(unsigned char* frame, int x, int y, unsigned char col)
 void
 ep_plot(unsigned char* frame, int x, int y, unsigned char col)
 {
-    int tx, ty;
+    unsigned tx, ty;
     tx=y;
     ty=x;
 
@@ -1003,7 +1003,7 @@ ep_write_text(unsigned char* frame, char* text, int x, int y, unsigned char col,
                 }
                 else
                 {
-                    py=0-ipy;
+                    py=0+ipy;
                 }
             }
 
