@@ -11,6 +11,11 @@
 #include "ep154.h"
 
 // Definitions
+// Hardware Input/Output
+#define BUSY 1
+#define RESET 2
+#define DC 3
+#define CS 4
 
 // these constants are taken from Waveshare source code:
 #define DRIVER_OUT_CTRL                    0x01
@@ -610,14 +615,6 @@ const PROGMEM int8_t simplex[95][112] = {
    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
    -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 };
-
-
-
-// Extern variables
-
-// Global variables
-// Hardware Input/Output
-static const int BUSY = 1, RESET = 2, DC = 3, CS = 4;
 
 // Function prototypes
 void ep_blob(unsigned char* frame, int x, int y, unsigned char col);
