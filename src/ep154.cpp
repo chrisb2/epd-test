@@ -11,11 +11,11 @@
 #include "ep154.h"
 
 // Definitions
-// Hardware Input/Output
-#define BUSY 1
-#define RESET 2
-#define DC 3
-#define CS 4
+// Hardware Input/Output - ATmega1284P
+#define BUSY 20
+#define RESET 3
+#define DC 2
+#define CS 1
 
 // these constants are taken from Waveshare source code:
 #define DRIVER_OUT_CTRL                    0x01

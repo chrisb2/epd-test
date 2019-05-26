@@ -12,23 +12,27 @@ const unsigned char partial_mode[] = {
         0x13, 0x14, 0x44, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
 // Global Variables
-char text[] = "Hello World";
+char text[] = "Hello";
 unsigned char fbuf[EP_FRAMEMEMSIZE];
 
 void setup() {
+    Serial.begin(9600);
+
     pinMode(LED_BUILTIN, OUTPUT);
     ep_spi_init();
     ep_init((unsigned char*)full_mode);
     ep_setbg(fbuf, ALL_WHITE);
 
-    ep_write_text(fbuf, text, 10, 50, COL_BLACK, 2.0, 1.0, NULL, PEN_MED);
+    ep_write_text(fbuf, text, 10, 50, COL_BLACK, 1.0, 1.0, NULL, PEN_MED);
     ep_setframe(fbuf, 0,0, EP_WIDTH, EP_HEIGHT);
     ep_displayframe();
+    Serial.println("Setup Done");
 }
 
 void loop() {
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(200);
+    delay(500);
     digitalWrite(LED_BUILTIN, LOW);
-    delay(200);
+    delay(500);
+    Serial.println("Loop");
 }
